@@ -20,7 +20,7 @@ call unite#util#set_default('g:unite_source_bookmark_directory',
 function! unite#sources#bookmark#define() abort "{{{
   return s:source
 endfunction"}}}
-function! unite#sources#bookmark#_append(filename) abort "{{{
+function! unite#sources#bookmark#_append(filename, ...) abort "{{{}}}
   if !isdirectory(g:unite_source_bookmark_directory)
         \ && !unite#util#is_sudo()
     call mkdir(g:unite_source_bookmark_directory, 'p')
@@ -57,11 +57,12 @@ function! unite#sources#bookmark#_append(filename) abort "{{{
 
   redraw
   echo 'Path: ' . path
+  let default_bookmark_name = get(a:, 1, 'default')
   let bookmark_name = input(
-        \ 'Please input bookmark file name (default): ',
+        \ 'Please input bookmark file name (' . default_bookmark_name . '): ',
         \ '', 'customlist,' . s:SID_PREFIX() . 'complete_bookmark_filename')
   if bookmark_name == ''
-    let bookmark_name = 'default'
+    let bookmark_name = default_bookmark_name
   endif
   let entry_name = input('Please input bookmark entry name : ')
 

@@ -15,7 +15,7 @@ if exists('g:loaded_unite_source_bookmark')
 endif
 
 command! -nargs=? -complete=file UniteBookmarkAdd
-      \ call unite#sources#bookmark#_append(<q-args>)
+      \ call unite#sources#bookmark#_append(<q-args>, get(g:, 'default_bookmark_name', 'default'))
 
 " Add custom action table. "{{{
 let s:file_bookmark_action = {
